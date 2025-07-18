@@ -61,5 +61,8 @@
       ],
       "unicorn/prevent-abbreviations": "off"
     }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
