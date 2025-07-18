@@ -67,7 +67,8 @@ server.setErrorHandler(async function (error: AppError, req, reply) {
 		const errObj = { ...error, message: error.message, statusCode: error.status, error: error.name };
 		await reply.status(error.status).send(errObj);
 	} else {
-		await reply.status(error.status).send(error);
+		error.message = 'server error';
+		await reply.status(error.status ?? 500).send(error);
 	}
 
 	// Send error response
