@@ -1,5 +1,5 @@
 {
-  "name": "framework",
+  "name": "@saggiyogesh/framework",
   "version": "1.0.0",
   "description": "",
   "main": "./lib/index.js",
