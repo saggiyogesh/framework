@@ -47,7 +47,7 @@ export function loadServices(server: FastifyInstance, servicesFolder: string) {
 					throw new TypeError(`Invalid handler for ${name}.${methodName}`);
 				}
 
-				// @ts-ignore
+				// @ts-expect-error
 				const { method, path, auth, reqSchema, rawBody, versionPrefix = server.currentApiVersion } = routeOptions;
 
 				console.log('re -- schema --', reqSchema);

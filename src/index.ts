@@ -1,16 +1,18 @@
+import { type AddressInfo } from 'node:net';
 import fastify from 'fastify';
 import fastifyBlipp from 'fastify-blipp';
 import fastifyJWT from '@fastify/jwt';
 import { getLoggerESM } from 'logger3000';
 import cors from '@fastify/cors';
 import { type TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
+import swagger from '@fastify/swagger';
+import swaggerUI from '@fastify/swagger-ui';
 import { loadServices } from './lib/routes.js';
 import { type AppError } from './utils/errorUtil.js';
-import { AddressInfo } from 'net';
 
 const Log = getLoggerESM(import.meta.url);
 
-const { PORT, NODE_ENV, TOKEN_SECRET = '' } = process.env;
+const { PORT, NODE_ENV, TOKEN_SECRET = '', ENABLE_SWAGGER } = process.env;
 
 const server = fastify({
 	logger: true,
@@ -43,6 +45,25 @@ server.decorate('onRequestFactory', (auth: string, method: string, path: string)
 });
 
 server.decorate('currentApiVersion', 'v1');
+
+if (ENABLE_SWAGGER === 'true') {
+	await server.register(swagger, {
+		openapi: {
+			openapi: '3.0.3',
+			info: {
+				title: 'My API',
+				description: 'Fastify Swagger Docs',
+				version: '1.0.0',
+			},
+			servers: [{ url: 'http://localhost:8001' }],
+		},
+	});
+
+	await server.register(swaggerUI, {
+		routePrefix: '/docs',
+		uiConfig: { docExpansion: 'list' },
+	});
+}
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 server.register(loadServices(server, `${process.cwd()}/${isDev ? 'src' : 'dist'}/services`));
