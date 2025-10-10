@@ -50,7 +50,7 @@ export function loadServices(server: FastifyInstance, servicesFolder: string) {
 				// @ts-expect-error
 				const { method, path, auth, reqSchema, rawBody, versionPrefix = server.currentApiVersion } = routeOptions;
 
-				console.log('re -- schema --', reqSchema);
+				// Console.log('re -- schema --', reqSchema);
 				const schema: FastifySchema = {};
 
 				if (reqSchema) {

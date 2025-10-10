@@ -51,7 +51,7 @@ if (ENABLE_SWAGGER === 'true') {
 		openapi: {
 			openapi: '3.0.3',
 			info: {
-				title: 'My API',
+				title: 'DCD API',
 				description: 'Fastify Swagger Docs',
 				version: '1.0.0',
 			},

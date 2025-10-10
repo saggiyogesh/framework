@@ -38,7 +38,7 @@ export function registerService(Class: DecoratorTarget, path?: string): void {
 		instance: new Class(),
 	};
 
-	console.log('Registered service:', _services);
+	// Console.log('Registered service:', _services);
 }
 
 export function registerRemote(
@@ -72,7 +72,7 @@ export function registerRemote(
 
 	_remotes[className][handlerMethodName] = config;
 
-	console.log('Registered remote:', _remotes);
+	// Console.log('Registered remote:', _remotes);
 }
 
 export function getServices() {
